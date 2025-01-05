@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres-task:
+    image: postgres:15
+    container_name: postgres-task
+    environment:
+      POSTGRES_USER: user_task
+      POSTGRES_PASSWORD: password_task
+      POSTGRES_DB: db_task
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-task-data:/var/lib/postgresql/data
+
+  postgres-notification:
+    image: postgres:15
+    container_name: postgres-notification
+    environment:
+      POSTGRES_USER: user_notification
+      POSTGRES_PASSWORD: password_notification
+      POSTGRES_DB: db_notification
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-notification-data:/var/lib/postgresql/data
+
+  service-task:
+    build:
+      context: ./service-task
+    container_name: service-task
+    depends_on:
+      - postgres-task
+      - service-notification
+    ports:
+      - "50051:50051"
+    environment:
+      DB_URL: postgres://user_task:password_task@postgres-task:5432/db_task?sslmode=disable
+      NOTIFICATION_SERVICE_URL: service-notification:50052
+
+  service-notification:
+    build:
+      context: ./service-notification
+    container_name: service-notification
+    depends_on:
+      - postgres-notification
+    ports:
+      - "50052:50052"
+    environment:
+      DB_URL: postgres://user_notification:password_notification@postgres-notification:5432/db_notification?sslmode=disable
+
+volumes:
+  postgres-task-data:
+  postgres-notification-data:

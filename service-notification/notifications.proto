@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package notifications;
+
+option go_package = "./notifications";
+
+service NotificationService {
+    rpc SaveNotification(SaveNotificationRequest) returns (SaveNotificationResponse);
+}
+
+message SaveNotificationRequest {
+    int32 task_id = 1;
+    string message = 2;
+}
+
+message SaveNotificationResponse {
+    bool success = 1;
+}
