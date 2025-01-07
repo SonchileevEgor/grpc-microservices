@@ -9,6 +9,6 @@ COPY . .
 
 RUN go build -o main .
 
-EXPOSE 50051
+EXPOSE 8081
 
 CMD ["./main"]

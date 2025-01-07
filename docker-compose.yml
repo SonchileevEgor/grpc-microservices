@@ -33,7 +33,7 @@ services:
       - postgres-task
       - service-notification
     ports:
-      - "50051:50051"
+      - "8081:8081"
     environment:
       DB_URL: postgres://user_task:password_task@postgres-task:5432/db_task?sslmode=disable
       NOTIFICATION_SERVICE_URL: service-notification:50052
