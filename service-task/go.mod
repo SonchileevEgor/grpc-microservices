@@ -3,10 +3,10 @@ module example.com/tasks
 go 1.23
 
 require (
-	github.com/SonchileevEgor/grpc-microservices/service-notification v1.0.1
 	github.com/jackc/pgx/v4 v4.18.3
 	google.golang.org/grpc v1.69.2
 	google.golang.org/protobuf v1.35.1
+	github.com/SonchileevEgor/grpc-microservices/service-notification v1.0.2
 )
 
 // replace example.com/notifications/notifications v0.0.0 => /service-notification
