@@ -1,4 +1,4 @@
-module example.com/notifications
+module github.com/SonchileevEgor/grpc-microservices
 
 go 1.23
 

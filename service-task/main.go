@@ -9,6 +9,7 @@ import (
 
     "github.com/jackc/pgx/v4/pgxpool"
     pb "example.com/tasks/tasks"
+	pbNotifications "github.com/SonchileevEgor/grpc-microservices/service-notification/notifications"
     "google.golang.org/grpc"
 )
 
@@ -18,12 +19,12 @@ type server struct {
 }
 
 // notifyServiceClient создаёт gRPC клиент для Service B.
-func notifyServiceClient(ctx context.Context, address string) (pb.NotificationServiceClient, *grpc.ClientConn, error) {
+func notifyServiceClient(ctx context.Context, address string) (pbNotifications.NotificationServiceClient, *grpc.ClientConn, error) {
 	conn, err := grpc.DialContext(ctx, address, grpc.WithInsecure(), grpc.WithBlock(), grpc.WithTimeout(5*time.Second))
 	if err != nil {
 		return nil, nil, err
 	}
-	return pb.NewNotificationServiceClient(conn), conn, nil
+	return pbNotifications.NewNotificationServiceClient(conn), conn, nil
 }
 
 func (s *server) CreateTask(ctx context.Context, req *pb.CreateTaskRequest) (*pb.CreateTaskResponse, error) {
@@ -42,7 +43,7 @@ func (s *server) CreateTask(ctx context.Context, req *pb.CreateTaskRequest) (*pb
 	}
 	defer conn.Close()
 
-	_, err = notificationClient.SaveNotification(ctx, &pb.SaveNotificationRequest{
+	_, err = notificationClient.SaveNotification(ctx, &pbNotifications.SaveNotificationRequest{
 		TaskId:  id,
 		Message: "New task created: " + req.Title,
 	})

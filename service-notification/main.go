@@ -7,7 +7,7 @@ import (
 	"os"
 
     "github.com/jackc/pgx/v4/pgxpool"
-    pb "example.com/notifications/notifications"
+    pb "github.com/SonchileevEgor/grpc-microservices/service-notification/notifications"
     "google.golang.org/grpc"
 )
 
