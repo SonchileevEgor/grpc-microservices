@@ -8,7 +8,7 @@ import (
 	"os"
 
     "github.com/jackc/pgx/v4/pgxpool"
-    pb "service-task/tasks"
+    pb "example.com/tasks/tasks"
     "google.golang.org/grpc"
 )
 
