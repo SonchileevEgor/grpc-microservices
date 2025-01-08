@@ -183,7 +183,7 @@ func main() {
 	defer db.Close()
 
 	// Инициализация gRPC клиента
-	notificationClient := NewNotificationClient("localhost:50052")
+	notificationClient := NewNotificationClient("service-notification:50052")
 
 	// Роуты
 	http.HandleFunc("/tasks", createTaskHandler(db, notificationClient))
